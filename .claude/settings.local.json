@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"c:/Users/LENOVO/noir-coffee\" && rm -f src/assets/react.svg src/assets/vite.svg src/assets/hero.png public/icons.svg && ls -la src/assets public)",
+      "Bash(npx vite *)",
+      "Bash(npx oxlint *)",
+      "Bash(netstat -ano)",
+      "Bash(npx --yes playwright screenshot --wait-for-timeout 2000 --viewport-size 1280,800 \"http://localhost:5173/\" \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-LENOVO-noir-coffee\\\\4769422e-96a0-4386-b84e-91ff1e91a2e1\\\\scratchpad\\\\check.png\")",
+      "Bash(npx --yes playwright screenshot --wait-for-timeout 2000 --viewport-size 1280,800 \"http://localhost:5173/\" \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-LENOVO-noir-coffee\\\\4769422e-96a0-4386-b84e-91ff1e91a2e1\\\\scratchpad\\\\swapped.png\")",
+      "WebFetch(domain:culinaryodissey.uprock.pro)",
+      "Bash(grep -oE '\\(data-aos[a-z-]*|swiper|parallax|gsap|ScrollTrigger|scroll-animation|animate__[a-z-]*|data-animation[a-z-]*|data-scroll[a-z-]*|data-parallax[a-z-]*\\)' /tmp/cul.html | sort | uniq -c | sort -rn | head -50)",
+      "Read(//tmp/**)",
+      "Bash(cygpath -w __CMDSUB_OUTPUT__/ref-screenshots/ref-00.png)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\LENOVO\\noir-coffee\\src\\assets"
+    ]
+  }
+}

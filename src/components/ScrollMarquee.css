@@ -1,0 +1,49 @@
+/* Bright Electric Blue band — a bold brand-accent strip, not a dark
+   ticker. Keeps the "bright, modern, editorial" direction even where
+   the reference site would go dark. */
+.scroll-marquee {
+  overflow: hidden;
+  padding: 32px 0;
+  background: #2457ff;
+}
+
+.scroll-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.scroll-marquee__group {
+  flex: none;
+  padding-right: 48px;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #f5f5f2;
+}
+
+@media (max-width: 767px) {
+  .scroll-marquee {
+    padding: 20px 0;
+  }
+
+  .scroll-marquee__group {
+    font-size: 20px;
+    padding-right: 32px;
+  }
+}
+
+/* Static single-line band: no loop, no duplicate group underneath. */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-marquee__track {
+    width: 100%;
+  }
+
+  .scroll-marquee__group:nth-child(2) {
+    display: none;
+  }
+}

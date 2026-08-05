@@ -1,0 +1,139 @@
+.site-footer {
+  background: #f5f5f2;
+}
+
+.site-footer__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 128px 48px 80px;
+  text-align: center;
+}
+
+.site-footer__label {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.site-footer__heading {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1.1;
+  color: #111111;
+}
+
+.site-footer__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 999px;
+  background: #2457ff;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  /* transform is owned by GSAP's magnetic pull on pointer-capable
+     devices (see SiteFooter.jsx) — same reasoning as the hero CTA. */
+  transition: box-shadow 200ms ease;
+  will-change: transform;
+}
+
+.site-footer__cta:hover {
+  box-shadow: 0 10px 24px rgba(36, 87, 255, 0.35);
+}
+
+.site-footer__cta:focus-visible {
+  outline: 2px solid #2457ff;
+  outline-offset: 3px;
+}
+
+.site-footer__cta-arrow {
+  transition: transform 200ms ease;
+}
+
+.site-footer__cta:hover .site-footer__cta-arrow {
+  transform: translateX(4px);
+}
+
+.site-footer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 48px;
+  border-top: 1px solid #d8d8d3;
+}
+
+.site-footer__brand {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #111111;
+}
+
+.site-footer__nav {
+  display: flex;
+  gap: 24px;
+}
+
+.site-footer__nav a {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #6b6b6b;
+  text-decoration: none;
+}
+
+.site-footer__nav a:hover {
+  color: #111111;
+}
+
+.site-footer__nav a:focus-visible {
+  outline: 2px solid #2457ff;
+  outline-offset: 3px;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .site-footer__content {
+    padding: 96px 32px 64px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .site-footer__content {
+    padding: 64px 20px 48px;
+  }
+
+  .site-footer__heading {
+    font-size: 36px;
+  }
+
+  .site-footer__bar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__cta-arrow {
+    transition: none;
+  }
+}

@@ -1,0 +1,209 @@
+.flavor-slider {
+  padding: 96px 48px;
+  background: #dce6ff;
+}
+
+.flavor-slider__intro {
+  max-width: 1440px;
+  margin: 0 auto 48px;
+}
+
+.flavor-slider__label {
+  margin: 0 0 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+.flavor-slider__heading {
+  margin: 0;
+  max-width: 16ch;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.1;
+  color: #111111;
+}
+
+.flavor-slider__heading span {
+  color: #2457ff;
+}
+
+/* overflow: hidden — visually clips the track; Draggable's own bounds
+   (passed this element in FlavorSlider.jsx) keep the drag itself from
+   ever needing to go further than this. */
+.flavor-slider__viewport {
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.flavor-slider__track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  cursor: grab;
+  will-change: transform;
+}
+
+.flavor-slider__track:active {
+  cursor: grabbing;
+}
+
+.flavor-slider__card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(280px, 70vw);
+  padding: 32px;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.flavor-slider__index {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #6b6b6b;
+}
+
+.flavor-slider__name {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #111111;
+}
+
+.flavor-slider__desc {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #6b6b6b;
+}
+
+.flavor-slider__controls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 1440px;
+  margin: 32px auto 0;
+}
+
+.flavor-slider__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #111111;
+  border-radius: 999px;
+  background: transparent;
+  color: #111111;
+  font-size: 18px;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    color 200ms ease,
+    opacity 200ms ease;
+}
+
+.flavor-slider__arrow:hover:not(:disabled) {
+  background: #111111;
+  color: #ffffff;
+}
+
+.flavor-slider__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.flavor-slider__arrow:focus-visible {
+  outline: 2px solid #2457ff;
+  outline-offset: 3px;
+}
+
+.flavor-slider__dots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flavor-slider__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: #b8c6f2;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
+}
+
+.flavor-slider__dot--active {
+  background: #2457ff;
+  transform: scale(1.4);
+}
+
+.flavor-slider__dot:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 3px;
+}
+
+.flavor-slider__count {
+  margin: 0 0 0 auto;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #6b6b6b;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .flavor-slider {
+    padding: 64px 32px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .flavor-slider {
+    padding: 48px 20px;
+  }
+
+  .flavor-slider__heading {
+    font-size: 32px;
+  }
+
+  .flavor-slider__controls {
+    flex-wrap: wrap;
+  }
+
+  .flavor-slider__count {
+    margin-left: 0;
+    width: 100%;
+    order: 1;
+  }
+}
+
+/* Native scroll-snap instead of a Draggable-transformed track. */
+@media (prefers-reduced-motion: reduce) {
+  .flavor-slider__viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .flavor-slider__track--static {
+    cursor: default;
+  }
+
+  .flavor-slider__card {
+    scroll-snap-align: start;
+  }
+}

@@ -1,0 +1,375 @@
+/* Far taller than one viewport on purpose — this height difference is
+   the scroll distance the three-scene sequence crossfades across (see
+   createSceneSequenceTimeline in heroAnimations.js). Not pinned. */
+.hero-video {
+  position: relative;
+  height: 600vh;
+  /* Paper, per the design system — a brief, bright fallback while the
+     video loads instead of a dark flash. */
+  background: #f5f5f2;
+}
+
+/* This — plain CSS position: sticky, not a ScrollTrigger pin — is what
+   keeps the current scene glued to the viewport while the section's
+   extra height scrolls past underneath it. */
+.hero-video__frame {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.hero-video__scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* Visible by default (and if JS never runs) — the timeline takes over
+   from here once it mounts. */
+.hero-video__scene--intro {
+  opacity: 1;
+}
+
+/* ---------- Scene 1: brand intro ---------- */
+
+/* The stage is what the scroll-driven scale/zoom targets. It's sized
+   to exactly fill the scene and clips (overflow: hidden) anything
+   that scales past its edges — that clipping is what makes the video
+   read as a cropped, art-directed object instead of a plain <video>
+   tag stretching to fit its box. */
+.hero-video__stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.hero-video__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* object-fit: cover fills the stage without distorting the footage,
+     cropping instead of stretching. object-position keeps the crop
+     centered as the viewport resizes. */
+  object-fit: cover;
+  object-position: center;
+  /* Hints the browser to promote this to its own compositor layer,
+     since GSAP animates its transform continuously on mouse move. */
+  will-change: transform;
+}
+
+/* A soft, localized scrim — NOT a dark filter over the whole video.
+   It fades in only behind the text and back out to fully transparent
+   within half the viewport, so the video stays bright and dominant. */
+.hero-video__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 55%,
+    rgba(17, 17, 17, 0.38) 0%,
+    rgba(17, 17, 17, 0.14) 42%,
+    rgba(17, 17, 17, 0) 72%
+  );
+}
+
+.hero-video__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+  padding: 48px;
+  text-align: center;
+}
+
+/* Big brand statement — Sora, "Display" scale from the design system
+   (used for hero headings / brand moments). Stays Sora even in a
+   scene sequence that otherwise reaches for Fraunces — the brand
+   wordmark itself is never set in the editorial serif. */
+.hero-video__brand {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 88px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+/* Small supporting line underneath — Space Grotesk, "Body Large" scale.
+   white-space: nowrap keeps it on one line on any screen it needs to
+   fit on; the mobile media query below drops the size further so it
+   still fits on narrow viewports without wrapping. */
+.hero-video__tagline {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.hero-video__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 999px;
+  background: #2457ff;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  /* transform is intentionally left out here: on pointer-capable
+     devices, GSAP owns this element's transform (the magnetic pull —
+     see HeroVideo.jsx), and a CSS transition on the same property
+     would fight it. Only box-shadow is a plain CSS transition. */
+  transition: box-shadow 200ms ease;
+  will-change: transform;
+}
+
+.hero-video__cta:hover {
+  box-shadow: 0 10px 24px rgba(36, 87, 255, 0.35);
+}
+
+.hero-video__cta:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.hero-video__cta-arrow {
+  transition: transform 200ms ease;
+}
+
+.hero-video__cta:hover .hero-video__cta-arrow {
+  transform: translateX(4px);
+}
+
+/* Minimal scroll cue, bottom-center. A plain CSS keyframe loop rather
+   than a GSAP tween — it's a small, constant, decorative loop, so a
+   lightweight CSS animation is the appropriate tool. It fades out
+   naturally along with the rest of scene 1 once the scene sequence
+   starts crossfading to scene 2. */
+.hero-video__scroll-indicator {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  color: #ffffff;
+  opacity: 0.7;
+}
+
+.hero-video__scroll-line {
+  width: 1px;
+  height: 32px;
+  background: currentColor;
+  animation: hero-scroll-cue 1.8s ease-in-out infinite;
+}
+
+.hero-video__scroll-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+@keyframes hero-scroll-cue {
+  0%,
+  100% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(0.5);
+    transform-origin: top;
+    opacity: 1;
+  }
+}
+
+/* ---------- Scenes 2 & 3: photo scenes ---------- */
+
+/* No backdrop layer here on purpose: the area not yet covered by the
+   growing panel below simply shows whatever's underneath in the
+   stack — the previous scene mid-crossfade, and beneath that, the
+   section's own steady Paper background (see .hero-video) — instead
+   of a separate color popping in and out as this scene's opacity
+   fades. The background stays constant; only the panel itself moves. */
+
+/* A plain rectangular panel — no arch/semicircle. Anchored to the
+   bottom, not centered: `bottom: 0` plus `transform-origin: 50% 100%`
+   means GSAP's scale (see HeroVideo.jsx / heroAnimations.js) grows
+   this box upward and outward from its own base rather than from its
+   middle, so it reads as rising up from the floor of the frame.
+   Width is a vw unit rather than a fixed px cap so the
+   scale-to-"fills the viewport" math (see the scale range passed in
+   HeroVideo.jsx) stays correct at any viewport width. overflow:
+   hidden clips the photo inside to the panel at every step of that
+   growth; once it's grown well past the viewport's edges, what's
+   left on screen is simply the photo, full-bleed. */
+.hero-video__arch {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 58vw;
+  height: 86%;
+  /* Starting shape — an arched top (see HeroVideo.jsx: GSAP morphs
+     this down to a plain rectangle as the panel scales up). */
+  border-radius: 500px 500px 16px 16px;
+  overflow: hidden;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  will-change: transform, border-radius;
+}
+
+.hero-video__arch-media {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Two background-image layers: a real photo, over a brand-toned
+   gradient. If the photo file doesn't exist yet (or fails to load),
+   the browser simply skips that layer and the gradient underneath
+   shows through — so dropping a file into /public with this exact
+   name is the entire "wire it in" step, no code change needed. */
+.hero-video__scene--roast .hero-video__arch-media {
+  background-image:
+    url('/hero-roast-room.jpg'),
+    linear-gradient(160deg, #2a2a2a 0%, #161616 55%, #2457ff 160%);
+}
+
+.hero-video__scene--pour .hero-video__arch-media {
+  background-image:
+    url('/hero-pour-bar.jpg'),
+    linear-gradient(160deg, #2a2a2a 0%, #161616 55%, #ff7043 170%);
+}
+
+.hero-video__scene-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  padding: 48px;
+  text-align: center;
+}
+
+/* The one deliberately sparing use of Fraunces (see DESIGN_SYSTEM.md
+   Typography) — an oversized, one-off editorial statement per scene.
+   Never used for the brand wordmark itself (that stays Sora, above). */
+.hero-video__scene-heading {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 72px;
+  line-height: 1.05;
+  color: #ffffff;
+}
+
+.hero-video__scene-copy {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .hero-video__content,
+  .hero-video__scene-content {
+    padding: 32px;
+  }
+
+  .hero-video__scene-heading {
+    font-size: 56px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .hero-video__content,
+  .hero-video__scene-content {
+    padding: 20px;
+  }
+
+  .hero-video__brand {
+    font-size: 56px;
+  }
+
+  .hero-video__tagline {
+    font-size: 16px;
+  }
+
+  .hero-video__scene-heading {
+    font-size: 40px;
+  }
+
+  /* One less always-on animation loop on the devices least able to
+     spare the cycles; the indicator itself stays visible, just still. */
+  .hero-video__scroll-line {
+    animation: none;
+  }
+}
+
+/* No crossfade, no zoom, no sticky frame: the three scenes simply
+   stack as normal full-height sections and the page scrolls past them
+   like any other content. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    height: auto;
+  }
+
+  .hero-video__frame {
+    position: static;
+    height: auto;
+  }
+
+  .hero-video__scene {
+    position: relative;
+    opacity: 1;
+    min-height: 100svh;
+  }
+
+  /* The arch is a scroll-scale effect end to end — with no animation
+     running at all, show scenes 2 & 3's photos as plain full-bleed
+     panels instead of a static, tiny arch-shaped sliver. */
+  .hero-video__arch {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    transform: none;
+  }
+
+  .hero-video__cta-arrow {
+    transition: none;
+  }
+
+  .hero-video__scroll-line {
+    animation: none;
+  }
+}

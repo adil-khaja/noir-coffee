@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* Paper, per the design system — the page background beyond the
+     hero. Scrolling past the hero currently reveals this, since no
+     next section exists yet (see the Hero implementation notes). */
+  background: #f5f5f2;
+}
+
+/* Lenis's own recommended base styles: let the document size itself
+   normally (Lenis doesn't need html/body height:100%) and make sure
+   nothing else on the page still tries to apply native smooth-scroll,
+   which would fight with Lenis's own smoothing. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}

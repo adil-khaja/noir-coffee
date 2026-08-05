@@ -1,0 +1,148 @@
+.horizontal-menu {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.horizontal-menu__frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 64px 0 0;
+}
+
+.horizontal-menu__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 48px;
+}
+
+.horizontal-menu__label {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.horizontal-menu__counter {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #6b6b6b;
+}
+
+.horizontal-menu__counter-active {
+  color: #2457ff;
+}
+
+.horizontal-menu__track {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: max-content;
+  padding: 48px 48px 0;
+  will-change: transform;
+}
+
+.horizontal-menu__card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(360px, 80vw);
+  min-height: 55svh;
+  padding: 32px;
+  border: 1px solid #d8d8d3;
+  border-radius: 16px;
+  background: #f5f5f2;
+}
+
+.horizontal-menu__mark {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+}
+
+.horizontal-menu__mark--soft {
+  background: #dce6ff;
+}
+
+.horizontal-menu__mark--electric {
+  background: #2457ff;
+}
+
+.horizontal-menu__mark--orange {
+  background: #ff7043;
+}
+
+.horizontal-menu__index {
+  margin-top: auto;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #6b6b6b;
+}
+
+.horizontal-menu__name {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  color: #111111;
+}
+
+.horizontal-menu__note {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6b6b6b;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .horizontal-menu__header,
+  .horizontal-menu__track {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .horizontal-menu__header,
+  .horizontal-menu__track {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .horizontal-menu__name {
+    font-size: 26px;
+  }
+}
+
+/* No pin/scrub: a normal, natively scrollable horizontal strip that
+   snaps card-to-card instead. */
+@media (prefers-reduced-motion: reduce) {
+  .horizontal-menu {
+    height: auto;
+    overflow: visible;
+  }
+
+  .horizontal-menu__track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 48px;
+  }
+
+  .horizontal-menu__card {
+    scroll-snap-align: start;
+  }
+}

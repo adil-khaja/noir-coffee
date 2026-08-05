@@ -1,0 +1,168 @@
+.process-story {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) 1fr;
+  gap: 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
+  background: #f5f5f2;
+}
+
+.process-story__sticky {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  height: 100svh;
+  padding-left: 32px;
+}
+
+/* Thin vertical rail whose fill height is set frame-by-frame from
+   ScrollTrigger progress in JS (see ProcessStory.jsx) — this is the
+   one continuously scroll-scrubbed element in the section. */
+.process-story__progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #d8d8d3;
+}
+
+.process-story__progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: #2457ff;
+}
+
+.process-story__label {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+.process-story__number {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #2457ff;
+}
+
+.process-story__title {
+  margin: 0;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1.05;
+  color: #111111;
+}
+
+.process-story__copy {
+  margin: 0;
+  max-width: 40ch;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #6b6b6b;
+}
+
+.process-story__steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.process-story__step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 70svh;
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+}
+
+.process-story__step--active {
+  opacity: 1;
+}
+
+.process-story__step-ghost {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 220px;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #dce6ff;
+}
+
+.process-story__step-title {
+  position: absolute;
+  left: 32px;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  color: #111111;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .process-story {
+    grid-template-columns: 1fr;
+    padding: 0 32px;
+  }
+
+  .process-story__sticky {
+    position: static;
+    height: auto;
+    padding: 64px 0 32px;
+  }
+
+  .process-story__progress {
+    display: none;
+  }
+
+  .process-story__step {
+    min-height: 40svh;
+  }
+
+  .process-story__step-ghost {
+    font-size: 140px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .process-story {
+    padding: 0 20px;
+  }
+
+  .process-story__title {
+    font-size: 40px;
+  }
+
+  .process-story__step-ghost {
+    font-size: 96px;
+  }
+
+  .process-story__step-title {
+    left: 20px;
+    font-size: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-story__step {
+    opacity: 1;
+  }
+}
